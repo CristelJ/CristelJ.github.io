@@ -18,14 +18,19 @@
 <body>
   <!-- 🎥 Video de fondo mejorado -->
   <video 
-    id="video-fondo" 
-    autoplay 
-    muted 
-    loop 
-    playsinline 
-    preload="auto"
-    poster="videos/fondo.jpg">
-  </video>
+  id="video-fondo"
+  autoplay
+  muted
+  loop
+  playsinline
+  webkit-playsinline
+  preload="auto"
+  poster="videos/fondo.jpg"
+>
+  <source src="videos/dia.mp4" type="video/mp4">
+  Tu navegador no soporta el video de fondo.
+</video>
+
 
   <div class="contenedor">
     <h1>🌤️ Consultas Ambientales</h1>
