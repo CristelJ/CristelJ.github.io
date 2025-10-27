@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Consulta de Variables Ambientales</title>
+<link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<video id="video-fondo" autoplay muted loop></video>
+
+<div class="contenedor">
+<h1>🌤️ Consultas Ambientales</h1>
+
+<div class="controles">
+  <div class="rango-fechas">
+    <label>Periodo:</label>
+    <input type="date" id="fechaInicio" />
+    <span class="rango-guion">—</span>
+    <input type="date" id="fechaFin" />
+  </div>
+
+  <div class="selector-variable">
+    <label for="variable">Variable:</label>
+    <select id="variable">
+      <option value="">Seleccione una opción</option>
+      <option value="temperatura">🌡️ Temperatura (°C)</option>
+      <option value="humedad">💧 Humedad (%)</option>
+      <option value="viento_kmh">🌬️ Viento (km/h)</option>
+      <option value="todas">📊 Todas las variables</option>
+    </select>
+  </div>
+
+  <button id="consultar">🔍 Consultar</button>
+  <button id="modo">🌙 Modo Oscuro</button>
+</div>
+
+<h2>📊 Resultados</h2>
+<p id="resumen"></p>
+
+<div id="grafico-area"> 
+  <label class="toggle-label">
+    Mostrar Gráficos:
+    <span class="toggle-grafico">
+      <input type="checkbox" id="toggleGrafico" checked>
+      <span class="slider"></span>
+    </span>
+  </label>
+
+  <button id="descargarPDF">📥 Descargar PDF</button>
+
+  <div class="grafico-wrapper"><canvas id="grafico1"></canvas></div>
+  <div class="grafico-wrapper" id="grafico-wrapper-2" style="display:none;"><canvas id="grafico2"></canvas></div>
+  <div class="grafico-wrapper" id="grafico-wrapper-3" style="display:none;"><canvas id="grafico3"></canvas></div>
+</div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
