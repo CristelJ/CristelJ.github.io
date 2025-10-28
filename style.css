@@ -177,7 +177,7 @@ canvas {
 
   h1 {
     font-size: 1.3rem;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .controles {
@@ -211,5 +211,6 @@ canvas {
     font-size: 1.1rem;
   }
 }
+
 
 
