@@ -84,7 +84,7 @@ button:hover {
 }
 .dark-mode input, .dark-mode select, .dark-mode button {
   background: rgba(255,255,255,0.08);
-  color: #e0e0e0;
+  color: #000000;
 }
 
 /* ====== Gráficos ====== */
@@ -211,7 +211,4 @@ canvas {
     font-size: 1.1rem;
   }
 }
-
-
-
 
