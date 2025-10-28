@@ -4,9 +4,9 @@ import os
 from datetime import datetime, timedelta
 
 # ==============================
-# CONFIGURACIÓN GENERAL
+# CONFIGURACIÓN GENERAL (SIN CAMBIOS)
 # ==============================
-dias_minimos = 10           # Mínimo de días a asegurar en el archivo
+dias_minimos = 10           
 intervalo = 30              # Intervalo en minutos
 archivo = "datos_ambientales.csv"
 
@@ -15,18 +15,16 @@ temp_min, temp_max = 19, 31      # °C
 hum_min, hum_max = 80, 95        # %
 viento_min, viento_max = 5, 12   # km/h
 
-# Rango horario por día
+# Rango horario por día (solo para datos históricos)
 hora_inicio = 6   # 06:00 AM
 hora_fin = 23     # 23:30 PM
 
 # ==============================
-# FUNCIONES AUXILIARES
+# FUNCIONES AUXILIARES (SIN CAMBIOS)
 # ==============================
 
 def leer_fechas_existentes(nombre_archivo):
     """Devuelve un set con las fechas (YYYY-MM-DD) ya presentes en el CSV."""
-    if not os.path.exists(nombre_archivo):
-        return set()
     fechas = set()
     with open(nombre_archivo, "r", encoding="utf-8") as f:
         next(f)  # saltar encabezado
@@ -36,7 +34,6 @@ def leer_fechas_existentes(nombre_archivo):
                 fechas.add(partes[0])
     return fechas
 
-
 def generar_datos_dia(dia, writer):
     """Genera los datos de un día completo y los escribe con el writer CSV."""
     inicio = datetime.combine(dia, datetime.min.time()).replace(hour=hora_inicio, minute=0)
@@ -45,8 +42,7 @@ def generar_datos_dia(dia, writer):
 
     while actual <= fin:
         hora = actual.hour
-
-        # Patrón diario de temperatura
+        # Lógica de simulación
         if 6 <= hora <= 12:
             temperatura = random.uniform(temp_min, temp_max - 3)
         elif 12 < hora <= 17:
@@ -54,7 +50,6 @@ def generar_datos_dia(dia, writer):
         else:
             temperatura = random.uniform(temp_min, temp_min + 4)
 
-        # Ruido aleatorio
         temperatura += random.uniform(-0.5, 0.5)
         humedad = random.uniform(hum_min, hum_max)
         viento = random.uniform(viento_min, viento_max)
@@ -66,31 +61,61 @@ def generar_datos_dia(dia, writer):
             round(humedad, 1),
             round(viento, 1)
         ])
-
         actual += timedelta(minutes=intervalo)
 
+def generar_registro_actual(writer):
+    """Genera y escribe una sola fila para el momento actual."""
+    
+    ahora = datetime.now()
+    
+    # Lógica de simulación simple basada en la hora
+    hora = ahora.hour
+    if 6 <= hora <= 12:
+        temperatura = random.uniform(temp_min, temp_max - 3)
+    elif 12 < hora <= 17:
+        temperatura = random.uniform(temp_max - 2, temp_max)
+    else:
+        temperatura = random.uniform(temp_min, temp_min + 4)
+
+    temperatura += random.uniform(-0.5, 0.5)
+    humedad = random.uniform(hum_min, hum_max)
+    viento = random.uniform(viento_min, viento_max)
+
+    writer.writerow([
+        ahora.strftime("%Y-%m-%d"),
+        ahora.strftime("%H:%M"), 
+        round(temperatura, 1),
+        round(humedad, 1),
+        round(viento, 1)
+    ])
+    return 1 
+
 
 # ==============================
-# LÓGICA PRINCIPAL
+# LÓGICA PRINCIPAL (MODIFICADA PARA OCTUBRE)
 # ==============================
 
-# Crear archivo si no existe
-nuevo_archivo = not os.path.exists(archivo)
-if nuevo_archivo:
+# 1. Crear archivo si no existe
+archivo_existia = os.path.exists(archivo)
+
+if not archivo_existia:
     with open(archivo, mode="w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["fecha", "hora", "temperatura", "humedad", "viento_kmh"])
-    print(f"📄 Archivo '{archivo}' creado.")
+    print(f"Archivo '{archivo}' creado.")
 
-# Leer días existentes en el CSV
-fechas_existentes = leer_fechas_existentes(archivo)
+# 2. Leer días existentes
+if archivo_existia:
+    fechas_existentes = leer_fechas_existentes(archivo)
+else:
+    fechas_existentes = set()
 
-# Calcular rango de días a asegurar
+# 3. Calcular rango de días (Solo el mes actual, hasta ayer)
 hoy = datetime.now().date()
-ultimo_dia = hoy - timedelta(days=1)  # hasta ayer (día completo)
-primer_dia = ultimo_dia - timedelta(days=dias_minimos - 1)
+ultimo_dia = hoy - timedelta(days=1) # El final del rango es AYER
+primer_dia = hoy.replace(day=1)       # El inicio del rango es el DÍA 1 DEL MES ACTUAL (Octubre)
 
-# Determinar qué días faltan
+# 4. Determinar qué días faltan en el rango calculado
 dias_faltantes = []
 fecha = primer_dia
 while fecha <= ultimo_dia:
@@ -98,15 +123,20 @@ while fecha <= ultimo_dia:
         dias_faltantes.append(fecha)
     fecha += timedelta(days=1)
 
-# Generar datos si faltan
+# 5. Generar datos históricos si faltan
 if not dias_faltantes:
-    print(f"⚠️ Ya existen datos para los últimos {dias_minimos} días. No se agregó nada nuevo.")
+    print(f"Ya existe historial completo del mes de Octubre (desde {primer_dia} hasta {ultimo_dia}).")
 else:
     with open(archivo, mode="a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         for dia in dias_faltantes:
             generar_datos_dia(dia, writer)
-        print(f"✅ Datos generados para {len(dias_faltantes)} día(s):")
-        print("   " + ", ".join([d.strftime("%Y-%m-%d") for d in dias_faltantes]))
+        print(f"Datos históricos generados para {len(dias_faltantes)} día(s), cubriendo el mes de Octubre.")
 
-print("✅ Archivo actualizado correctamente con datos sintéticos.")
+# 6. Siempre agregar un registro en vivo (para simular el sensor)
+with open(archivo, mode="a", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    generar_registro_actual(writer)
+    print(f"Registro en vivo agregado al CSV: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    
+print("Archivo 'datos_ambientales.csv' actualizado correctamente.")
