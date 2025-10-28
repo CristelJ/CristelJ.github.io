@@ -171,13 +171,13 @@ canvas {
 
   .contenedor {
     width: 95%;
-    padding: 10px 10px;
+    padding: 20px 10px;
     border-radius: 16px;
   }
 
   h1 {
     font-size: 1.3rem;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .controles {
@@ -211,6 +211,7 @@ canvas {
     font-size: 1.1rem;
   }
 }
+
 
 
 
