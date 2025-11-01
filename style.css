@@ -3,7 +3,7 @@
 body {
 font-family: 'Roboto', sans-serif;
 background: linear-gradient(to bottom, #0d1117, #1c1f26);
-color: #e0e0e0;
+color: #000000;
 text-align: center;
 margin: 0;
 padding: 40px 10px;
@@ -71,7 +71,7 @@ cursor: pointer;
 background: rgba(255, 255, 255, 0.15);
 font-weight: 600;
   /* CORREGIDO: Asegura color claro para texto del botón */
-color: #e0e0e0; 
+color: #000000; 
 transition: all 0.3s ease;
 }
 button:hover {
