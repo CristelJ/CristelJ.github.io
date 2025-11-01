@@ -62,7 +62,7 @@ font-weight: 500;
 outline: none;
 background: rgba(43, 49, 61, 0.6);
   /* CORREGIDO: Asegura color claro para texto sobre fondo oscuro (legibilidad) */
-color: #e0e0e0; 
+color: #000000; 
 transition: all 0.3s ease;
 }
 
@@ -89,7 +89,7 @@ background: rgba(255,255,255,0.03);
 .dark-mode input, .dark-mode select, .dark-mode button {
 background: rgba(25, 29, 37, 0.7);
   /* CORREGIDO: Usar color claro para texto sobre fondo oscuro (legibilidad) */
-color: #e0e0e0; 
+color: #000000; 
 }
 
 /* ====== Gráficos ====== */
@@ -215,4 +215,5 @@ h2 {
 font-size: 1.1rem;
 }
 }
+
 
