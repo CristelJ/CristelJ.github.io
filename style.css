@@ -3,7 +3,7 @@
 body {
 font-family: 'Roboto', sans-serif;
 background: linear-gradient(to bottom, #0d1117, #1c1f26);
-color: #000000;
+color: #e0e0e0;
 text-align: center;
 margin: 0;
 padding: 40px 10px;
@@ -62,8 +62,18 @@ font-weight: 500;
 outline: none;
 background: rgba(162, 157, 157, 0.342);
   /* CORREGIDO: Asegura color claro para texto sobre fondo oscuro (legibilidad) */
-color: #000000; 
+color: #e0e0e0; 
 transition: all 0.3s ease;
+}
+
+select {
+    color: #000000 !important; /* Texto negro para las opciones desplegadas */
+    background: #ffffff !important; /* Fondo blanco para las opciones desplegadas */
+}
+
+/* 💡 REGLA ADICIONAL: Asegurar que el texto dentro del select, antes de desplegar, se vea bien. */
+select, input {
+    color: #e0e0e0; 
 }
 
 button {
@@ -71,7 +81,7 @@ cursor: pointer;
 background: rgba(255, 255, 255, 0.15);
 font-weight: 600;
   /* CORREGIDO: Asegura color claro para texto del botón */
-color: #000000; 
+color: #e0e0e0; 
 transition: all 0.3s ease;
 }
 button:hover {
@@ -87,9 +97,15 @@ background: linear-gradient(to bottom, #0b0c10, #16181f);
 background: rgba(255,255,255,0.03);
 }
 .dark-mode input, .dark-mode select, .dark-mode button {
-background: rgba(255,255,255,0.08);
-  /* CORREGIDO: Usar color claro para texto sobre fondo oscuro (legibilidad) */
-color: #000000; 
+/* Fondo del campo de entrada sigue oscuro */
+background: rgba(25, 29, 37, 0.7);
+/* El texto del campo de entrada debe ser claro */
+color: #e0e0e0; 
+}
+
+.dark-mode select {
+    color: #000000 !important; /* Forzar el texto de las opciones a negro */
+    background: #ffffff !important; /* Forzar el fondo de las opciones a blanco */
 }
 
 /* ====== Gráficos ====== */
