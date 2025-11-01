@@ -60,7 +60,7 @@ border: none;
 font-size: 1em;
 font-weight: 500;
 outline: none;
-background: rgba(43, 49, 61, 0.6);
+background: rgba(162, 157, 157, 0.342);
   /* CORREGIDO: Asegura color claro para texto sobre fondo oscuro (legibilidad) */
 color: #000000; 
 transition: all 0.3s ease;
@@ -68,10 +68,10 @@ transition: all 0.3s ease;
 
 button {
 cursor: pointer;
-background: rgba(35, 40, 50, 0.8);
+background: rgba(255, 255, 255, 0.15);
 font-weight: 600;
   /* CORREGIDO: Asegura color claro para texto del botón */
-color: #000000; 
+color: #e0e0e0; 
 transition: all 0.3s ease;
 }
 button:hover {
@@ -87,7 +87,7 @@ background: linear-gradient(to bottom, #0b0c10, #16181f);
 background: rgba(255,255,255,0.03);
 }
 .dark-mode input, .dark-mode select, .dark-mode button {
-background: rgba(25, 29, 37, 0.7);
+background: rgba(255,255,255,0.08);
   /* CORREGIDO: Usar color claro para texto sobre fondo oscuro (legibilidad) */
 color: #000000; 
 }
@@ -215,6 +215,3 @@ h2 {
 font-size: 1.1rem;
 }
 }
-
-
-
