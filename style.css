@@ -71,7 +71,7 @@ cursor: pointer;
 background: rgba(35, 40, 50, 0.8);
 font-weight: 600;
   /* CORREGIDO: Asegura color claro para texto del botón */
-color: #e0e0e0; 
+color: #000000; 
 transition: all 0.3s ease;
 }
 button:hover {
@@ -215,5 +215,6 @@ h2 {
 font-size: 1.1rem;
 }
 }
+
 
 
